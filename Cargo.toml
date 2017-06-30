@@ -1,0 +1,7 @@
+[package]
+name = "rsof"
+version = "0.1.0"
+authors = ["livingdeadzerg@yandex.ru"]
+
+[dependencies]
+psutil = { version = "1.0.0", path = "../rust-psutil" }
