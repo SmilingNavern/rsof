@@ -5,3 +5,5 @@ authors = ["livingdeadzerg@yandex.ru"]
 
 [dependencies]
 psutil = { version = "1.0.0", path = "../rust-psutil" }
+clap = "2.25.0"
+users = "0.5.2"
