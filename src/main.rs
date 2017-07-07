@@ -7,7 +7,11 @@ use clap::{Arg, App, SubCommand, ArgMatches};
 
 
 fn show_process_fds(process: psutil::process::Process, cache: &mut UsersCache) {
-    let user_name = cache.get_user_by_uid(process.uid).name();
+    let user_name = match cache.get_user_by_uid(process.uid) {
+        Some(user) => user.name().to_string(),
+        None => process.uid.to_string(),
+    };
+
     if let Ok(fds) = process.open_fds() {
         for fd in fds {
             println!("{} {} {}fd {}", process.pid, user_name, fd.number, fd.path.as_path().display())
@@ -19,7 +23,7 @@ fn show_process_fds(process: psutil::process::Process, cache: &mut UsersCache) {
 
 fn show_all_process_fds(cache: &mut UsersCache) {
     for p in psutil::process::all().unwrap() {
-        show_process_fds(p, &mut cache);
+        show_process_fds(p, cache);
     }
 }
 

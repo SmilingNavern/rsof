@@ -4,6 +4,6 @@ version = "0.1.0"
 authors = ["livingdeadzerg@yandex.ru"]
 
 [dependencies]
-psutil = { version = "1.0.0", path = "../rust-psutil" }
+psutil = "1.1.0"
 clap = "2.25.0"
 users = "0.5.2"
