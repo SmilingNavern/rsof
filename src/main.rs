@@ -1,9 +1,9 @@
 extern crate users;
-use users::{Users, Groups, UsersCache};
+use users::{Users, UsersCache};
 extern crate psutil;
 #[macro_use]
 extern crate clap;
-use clap::{Arg, App, SubCommand, ArgMatches};
+use clap::{Arg, App};
 
 
 fn show_process_fds(process: psutil::process::Process, cache: &mut UsersCache) {
@@ -22,9 +22,14 @@ fn show_process_fds(process: psutil::process::Process, cache: &mut UsersCache) {
 
 
 fn show_all_process_fds(cache: &mut UsersCache) {
-    for p in psutil::process::all().unwrap() {
-        show_process_fds(p, cache);
-    }
+    match psutil::process::all() {
+        Ok(processes) => {
+            for p in processes {
+                show_process_fds(p, cache);
+            }
+        },
+        Err(_) => println!("Couldn't read info about processes"),
+    };
 }
 
 
